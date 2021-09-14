@@ -88,7 +88,7 @@
             </div>
         </nav>
 
-        @if(!in_array(request()->path(), ['login', 'register', 'password/email', 'password/reset']))
+        @if(!in_array(explode('/', request()->path())[0], ['login', 'register', 'password/email', 'password/reset', 'channels']))
             <main class="container py-4">
                 <div class="row">
 
@@ -105,7 +105,7 @@
 
                         <div class="card">
                             <div class="card-header">
-                                Channels
+                                <a href="{{ route('channels.index') }}" class="font-weight-bold text-dark">Channels</a>
                             </div>
 
                             <div class="card-body">

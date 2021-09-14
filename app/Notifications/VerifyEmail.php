@@ -10,5 +10,4 @@ class VerifyEmail extends BaseVerifyEmail implements ShouldQueue
 {
     use Queueable;
 
-    
 }

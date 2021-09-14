@@ -23,6 +23,8 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::resource('discussions', App\Http\Controllers\DiscussionsController::class);
 
+Route::resource('channels', App\Http\Controllers\ChannelsController::class);
+
 Route::resource('discussions/{discussion}/replies', App\Http\Controllers\RepliesController::class);
 
 Route::post('discussions/{discussion}/replies/{reply}/mark-as-best', [App\Http\Controllers\DiscussionsController::class, 'reply'])->name('discussions.mark');
