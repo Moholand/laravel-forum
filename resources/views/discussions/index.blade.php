@@ -3,14 +3,14 @@
 @section('content')
 
 @foreach($discussions as $discussion)
-<div class="card mb-4">
+<div class="card mb-4 shadow">
     @include('partials/header')
 
     <div class="card-body">
       <div class="text-center">
-        <strong>
+        <h4>
           {{ $discussion->title }}
-        </strong>
+        </h4>
       </div>
     </div>
 </div>

@@ -92,35 +92,7 @@
             <main class="container py-4">
                 <div class="row">
 
-                    <div class="col-md-4">
-                        @auth
-                            <a href="{{ route('discussions.create') }}" style="width: 100%; color: #ffffff" class="btn btn-info mb-3">
-                                Add Discussion
-                            </a>
-                        @else
-                            <a href="{{ route('login') }}" style="width: 100%; color: #ffffff" class="btn btn-info mb-3">
-                                Sign in for Add Discussion
-                            </a>
-                        @endauth
-
-                        <div class="card">
-                            <div class="card-header">
-                                <a href="{{ route('channels.index') }}" class="font-weight-bold text-dark">Channels</a>
-                            </div>
-
-                            <div class="card-body">
-                                <ul class="list-group">
-                                    @foreach($channels as $channel)
-                                        <li class="list-group-item">
-                                            <a href="{{ route('discussions.index') }}?channel={{$channel->slug}}">
-                                                {{$channel->name}}
-                                            </a>
-                                        </li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
+                    @include('partials.sidebar')
 
                     <div class="col-md-8">
                         @yield('content')
