@@ -4,7 +4,7 @@
 
 @foreach($discussions as $discussion)
 <div class="card mb-4 shadow">
-    @include('partials/header')
+    @include('partials.header')
 
     <div class="card-body">
       <div class="text-center">
@@ -12,7 +12,12 @@
           {{ $discussion->title }}
         </h4>
       </div>
+      <div class="text-center">
+        {{ strip_tags(substr($discussion->content, 0, 70) . '...') }}
+      </div>
     </div>
+
+    @include('partials.footer')
 </div>
 @endforeach
 

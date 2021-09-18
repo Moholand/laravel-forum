@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Like;
+use App\Models\Reply;
 use App\Models\Discussion;
 use Illuminate\Http\Request;
 use App\Notifications\NewReplyAdded;
@@ -94,5 +96,27 @@ class RepliesController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function like(Discussion $discussion, Reply $reply) {
+        Like::create([
+            'reply_id' => $reply->id,
+            'user_id' => auth()->user()->id
+        ]);
+
+        session()->flash('success', 'You like the reply!');
+
+        return redirect()->back();
+    }
+
+    public function unlike(Discussion $discussion, Reply $reply) {
+
+        $like = Like::where('reply_id', $reply->id)->where('user_id', auth()->user()->id)->first();
+
+        $like->delete();
+
+        session()->flash('success', 'You unlike the reply!');
+
+        return redirect()->back();
     }
 }

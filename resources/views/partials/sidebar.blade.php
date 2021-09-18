@@ -1,10 +1,10 @@
 <div class="col-md-4">
     @auth
-        <a href="{{ route('discussions.create') }}" style="width: 100%; color: #ffffff" class="btn btn-success mb-3 shadow">
+        <a href="{{ route('discussions.create') }}" style="width: 100%; color: #ffffff" class="btn btn-info mb-3 shadow">
             Add Discussion
         </a>
     @else
-        <a href="{{ route('login') }}" style="width: 100%; color: #ffffff" class="btn btn-success mb-3 shadow">
+        <a href="{{ route('login') }}" style="width: 100%; color: #ffffff" class="btn btn-info mb-3 shadow">
             Sign in for Add Discussion
         </a>
     @endauth

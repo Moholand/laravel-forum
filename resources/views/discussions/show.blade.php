@@ -38,6 +38,9 @@
     @endif
 
   </div>
+
+  @include('partials.footer')
+  
 </div>
 
 @foreach($discussion->replies()->paginate(3) as $reply)
@@ -67,6 +70,16 @@
     <div class="card-body">
       {!! $reply->content !!}
     </div>
+
+    <div class="card-footer">
+      @if($reply->is_liked_by_auth_user())
+        <a href="{{ route('reply.unlike', ['discussion' => $discussion->slug, 'reply' => $reply->id]) }}" class="btn btn-danger btn-sm">UnLike</a>
+      @else
+        <a href="{{ route('reply.like', ['discussion' => $discussion->slug, 'reply' => $reply->id]) }}" class="btn btn-success btn-sm">Like</a>
+      @endif
+      <span class="badge bg-danger text-white">{{ $reply->likes->count() }}</span>
+    </div>
+
   </div>
 @endforeach
 
@@ -74,8 +87,8 @@
   {{ $discussion->replies()->paginate(3)->links() }}
 </div>
 
-<div class="card mt-3">
-  <div class="card-header">
+<div class="card mt-3 shadow">
+  <div class="card-header bg-info text-white">
     Add Reply
   </div>
 

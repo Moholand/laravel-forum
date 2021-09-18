@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect(route('discussions.index'));
 });
 
 Auth::routes(['verify' => true]);
@@ -26,6 +26,8 @@ Route::resource('discussions', App\Http\Controllers\DiscussionsController::class
 Route::resource('channels', App\Http\Controllers\ChannelsController::class);
 
 Route::resource('discussions/{discussion}/replies', App\Http\Controllers\RepliesController::class);
+Route::get('discussions/{discussion}/replies/{reply}/like', [App\Http\Controllers\RepliesController::class, 'like'])->name('reply.like');
+Route::get('discussions/{discussion}/replies/{reply}/unlike', [App\Http\Controllers\RepliesController::class, 'unlike'])->name('reply.unlike');
 
 Route::post('discussions/{discussion}/replies/{reply}/mark-as-best', [App\Http\Controllers\DiscussionsController::class, 'reply'])->name('discussions.mark');
 
