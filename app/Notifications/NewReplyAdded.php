@@ -49,6 +49,7 @@ class NewReplyAdded extends Notification implements ShouldQueue
     public function toMail($notifiable)
     {
         return (new MailMessage)
+                    ->greeting('Hello From MOHOLAND!')
                     ->line('A new reply added to your discussion.')
                     ->action('View Discussion', route('discussions.show', $this->discussion->slug))
                     ->line('Thank you for using our application!');

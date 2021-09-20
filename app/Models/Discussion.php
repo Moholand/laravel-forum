@@ -22,6 +22,10 @@ class Discussion extends Model
         return $this->hasMany(Reply::class);
     }
 
+    public function channel() {
+        return $this->belongsTo(Channel::class);
+    }
+
     public function getRouteKeyName() 
     {
         return 'slug';
@@ -52,6 +56,9 @@ class Discussion extends Model
         $this->update([
             'reply_id' => $reply->id,
         ]);
+
+        $reply->owner->points += 50;
+        $reply->owner->save();
 
         if($reply->owner->id === $this->author->id) {
             return;

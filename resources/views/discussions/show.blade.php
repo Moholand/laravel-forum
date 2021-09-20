@@ -22,7 +22,11 @@
           <div class="d-flex justify-content-between align-items-center">
             <div>
               <img class="mr-3" width="40px" height="40px" style="border-radius: 50%" src="{{ Gravatar::src($discussion->bestReply->owner->email) }}">
-              {{ $discussion->bestReply->owner->name }}
+              <strong>
+                {{ $discussion->bestReply->owner->name }}
+                <span class="text-white">({{ $discussion->bestReply->owner->points }})</span>
+              </strong>
+              <span>({{$discussion->bestReply->created_at->diffForHumans() }})</span>
             </div>
 
             <div>
@@ -49,7 +53,11 @@
       <div class="d-flex justify-content-between">
         <div>
           <img width="40px" height="40px" style="border-radius: 50%" src="{{ Gravatar::src($reply->owner->email) }}">
-          <span class="ml-3">{{ $reply->owner->name }}</span>
+          <strong>
+            <span">{{ $reply->owner->name }}</span>
+            <span class="text-danger">({{ $reply->owner->points }})</span>
+          </strong>
+          <span>({{$reply->created_at->diffForHumans() }})</span>
         </div>
 
         <div>
@@ -72,11 +80,14 @@
     </div>
 
     <div class="card-footer">
-      @if($reply->is_liked_by_auth_user())
-        <a href="{{ route('reply.unlike', ['discussion' => $discussion->slug, 'reply' => $reply->id]) }}" class="btn btn-danger btn-sm">UnLike</a>
-      @else
-        <a href="{{ route('reply.like', ['discussion' => $discussion->slug, 'reply' => $reply->id]) }}" class="btn btn-success btn-sm">Like</a>
-      @endif
+      @auth
+        @if($reply->is_liked_by_auth_user())
+          <a href="{{ route('reply.unlike', ['discussion' => $discussion->slug, 'reply' => $reply->id]) }}" class="btn btn-danger btn-sm">UnLike</a>
+        @else
+          <a href="{{ route('reply.like', ['discussion' => $discussion->slug, 'reply' => $reply->id]) }}" class="btn btn-success btn-sm">Like</a>
+        @endif
+      @endauth
+      
       <span class="badge bg-danger text-white">{{ $reply->likes->count() }}</span>
     </div>
 

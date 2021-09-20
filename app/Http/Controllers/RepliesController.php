@@ -11,6 +11,12 @@ use App\Http\Requests\CreateReplyRequest;
 
 class RepliesController extends Controller
 {
+
+    public function __construct() 
+    {
+        $this->middleware(['auth', 'verified'])->only(['store', 'like', 'unlike']);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -44,7 +50,10 @@ class RepliesController extends Controller
             'discussion_id' => $discussion->id
         ]);
 
-        if($discussion->user->id !== auth()->user()->id) {
+        auth()->user()->points += 25;
+        auth()->user()->save();
+
+        if($discussion->author->id !== auth()->user()->id) {
             $discussion->author->notify(new NewReplyAdded($discussion));
         }
 
