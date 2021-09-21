@@ -91,6 +91,7 @@
         @if(!in_array(explode('/', request()->path())[0], ['login', 'register', 'password/email', 'password/reset', 'channels']))
             <main class="container py-4">
                 @include('partials.alertSuccess')
+                @include('partials.errors')
                 <div class="row">
 
                     @include('partials.sidebar')

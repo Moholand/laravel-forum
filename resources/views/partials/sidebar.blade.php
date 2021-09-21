@@ -21,7 +21,11 @@
 
     <div class="card shadow">
         <div class="card-header">
-            <a href="{{ route('channels.index') }}" class="font-weight-bold text-dark" style="text-decoration: none">Channels</a>
+            @if(auth()->check() && auth()->user()->admin)
+                <a href="{{ route('channels.index') }}" class="font-weight-bold text-dark" style="text-decoration: none">Channels</a>
+            @else
+                Channels
+            @endif
         </div>
 
         <div class="card-body">

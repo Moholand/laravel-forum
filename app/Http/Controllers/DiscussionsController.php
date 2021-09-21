@@ -76,9 +76,11 @@ class DiscussionsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Discussion $discussion)
     {
-        //
+        return view('discussions.create', [
+            'discussion' => $discussion
+        ]);
     }
 
     /**
@@ -88,9 +90,18 @@ class DiscussionsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CreateDiscussionRequest $request, Discussion $discussion)
     {
-        //
+        $discussion->update([
+            'title' => $request->title,
+            'slug' => Str::slug($request->title),
+            'content' => $request->content,
+            'channel_id' => $request->channel
+        ]);
+
+        session()->flash('success', 'Discussion successfuly Updated!');
+
+        return redirect(route('discussions.show', ['discussion' => $discussion->slug]));
     }
 
     /**
